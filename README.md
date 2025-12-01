@@ -43,4 +43,4 @@ Le linking rassemble tous les fichiers **.o** pour former un **exécutable** fin
 #### Exemple de compilation
 <img width="1666" height="805" alt="image" src="https://github.com/user-attachments/assets/41d0605a-006c-4d88-9f4a-62bc653a9a4b" />
 
-
+## Makefile guide
