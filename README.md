@@ -48,6 +48,16 @@ Cela nous permet donc de choisir le nom de notre exécutable.
 gcc test.c -o test # test sera alors l'executable
 ```
 
+#### -I
+-I permet d'indiquer à gcc ou trouver les headers, ce qui permet d'éviter de spécifier leur chemins dans les includes.
+```
+gcc -Iinclude test.c -o test
+```
+
+#### -L / -l
+- -L permet d'indiquer le repertoir ou se trouve les library.
+- -l permet d'indiquer quel sont 
+
 #### Linking
 
 Le linking rassemble tous les fichiers **.o** pour former un **exécutable** final.
@@ -189,3 +199,7 @@ fclean: clean
 
 .PHONY: all clean fclean
 ```
+
+## Les fichiers .d
+
+
