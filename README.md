@@ -35,6 +35,13 @@ Elle est visible grâce à l’option **-c**.
 ```
 gcc -c test.c
 ```
+Cette étape sera alors utile dans le Makefile pour eviter de recompiler l'enssemble des fichiers il recompilera seulement les .o concernés.
+
+#### -o
+Une option utile à connaitre est -o qui permet de prendre le contenue du fichier a sa gauche pour le stocker dans le fichier de droite. Cela nous permet donc de choisir le nom de notre executable.
+```
+gcc test.c -o test # test sera alors l'executable
+```
 
 #### Linking
 
@@ -75,7 +82,11 @@ make:
  gcc $(SRCS) ## synthaxe d'un appel de variable dans un makefile
 ```
 
-// rajouter les nom standard de variable
+#### Les variables specifique
+
+- NAME : Représente le nom cible de l'executable.
+- SRCS : Représente l'ensemble des fichiers sources
+- OBJS : Représente l'ensemble des .o
 
 ### Les dépendances
 Comme expliqué précédemment, make évite de reconstruire une cible si ce n’est pas nécessaire.
@@ -125,4 +136,11 @@ Elle permet de spécifier que certaines cibles ne représentent pas de fichiers,
 Sans **.PHONY**, si un fichier nommé “clean” existe, la règle **clean** ne s’exécuterait pas.
 ```
 .PHONY: all clean fclean re
+```
+
+#### %.o: %.c
+
+## Makefile de base
+```
+
 ```
