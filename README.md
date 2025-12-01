@@ -92,6 +92,8 @@ make:
 - NAME : Représente le nom cible de l'executable.
 - SRCS : Représente l'ensemble des fichiers sources
 - OBJS : Représente l'ensemble des .o
+- CC : Représente le compilateur utilisé
+- FLAGS : Représente les flags utilisés
 
 ### Les dépendances
 Comme expliqué précédemment, make évite de reconstruire une cible si ce n’est pas nécessaire.
@@ -101,6 +103,9 @@ cible: dependances
  commande
 ```
 Make remontera automatiquement dans les dépendances pour vérifier si elles aussi doivent être reconstruites.
+
+// les regles et les variables
+
 
 ### Les règles specifique
 Certaines règles ont déjà une utilité ou une convention d’usage dans les Makefiles, que ce soit par habitude, par norme ou parce que make leur donne un comportement particulier.
@@ -145,7 +150,29 @@ Sans **.PHONY**, si un fichier nommé “clean” existe, la règle **clean** ne
 
 #### %.o: %.c
 
+// expliquer aussi $@ $< $^
+
 ## Makefile de base
 ```
+NAME = test
+SRCS = test1.c test2.c
+OBJS = $(SRCS:.c=.o)
+CC = gcc
+FLAGS = -Wall -Werror -Wextra
 
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+.PHONY: all clean fclean
 ```
