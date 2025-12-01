@@ -104,9 +104,6 @@ cible: dependances
 ```
 Make remontera automatiquement dans les dépendances pour vérifier si elles aussi doivent être reconstruites.
 
-// les regles et les variables
-
-
 ### Les règles specifique
 Certaines règles ont déjà une utilité ou une convention d’usage dans les Makefiles, que ce soit par habitude, par norme ou parce que make leur donne un comportement particulier.
 
