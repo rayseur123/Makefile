@@ -11,6 +11,10 @@ Dans nos exemples, on utilise gcc, qui permet de compiler des fichiers C.
 
 ### Comment ça marche, la compilation ?
 On va parler ici des quatre grandes étapes de la compilation.
+A savoir qu'un compilateur peut reprendre la compilation si on lui fournit les fichiers nécessaires.
+```
+gcc test.o test2.o
+```
 
 #### Pre processor
 Le Pre processor se charge de faire les remplacements textuels :
@@ -38,7 +42,8 @@ gcc -c test.c
 Cette étape sera alors utile dans le Makefile pour eviter de recompiler l'enssemble des fichiers il recompilera seulement les .o concernés.
 
 #### -o
-Une option utile à connaitre est -o qui permet de prendre le contenue du fichier a sa gauche pour le stocker dans le fichier de droite. Cela nous permet donc de choisir le nom de notre executable.
+Une option utile à connaître est **-o**, qui permet de prendre le contenu du fichier à sa gauche et de le stocker dans le fichier de droite.
+Cela nous permet donc de choisir le nom de notre exécutable.
 ```
 gcc test.c -o test # test sera alors l'executable
 ```
