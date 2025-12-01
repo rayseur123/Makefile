@@ -45,25 +45,29 @@ Le linking rassemble tous les fichiers **.o** pour former un **exécutable** fin
 
 ## Makefile guide
 ### le règles
-Une règle représente une commande ou un ensemble de commandes shells à executer. Les règles représente le coeur même du makefile, qui parcourera les differentes règles les unes apres les autres pour construire le fichier final.
+ne règle représente une commande, ou un ensemble de commandes shell, à exécuter.
+Les règles constituent le **cœur** du Makefile : make les parcourt et les exécute pour construire le fichier final.
 
-Elles sont constinuer de leur nom suivie d'un **:** qui trouvera son utiliser plus tard. Puis une tabulation et enfin la ligne a éxecuter. Une règle peux executer plusieurs lignes à la suite.
+Elles sont composées de leur nom, suivi d’un **:**, puis d’une ou plusieurs lignes de commandes précédées d’une **tabulation**.
+Une règle peut exécuter plusieurs lignes à la suite.
 ```
 test:
  echo "test1"
  echo "test2"
 ```
 
-Il est donc possible avec la compilation expliqué plus tot de faire ceci pour obtenir un executable.
+Avec ce que nous avons vu sur la compilation, il est donc possible d’obtenir un exécutable très simplement :
 ```
 make:
  gcc test.c
 ```
 
 ### Les variables
-Les Makefiles, comme pour un language de programmation possede des variables. Celles ci nous permetant de rendre un makefile plus lisible / modulable. Il faut passer le contenue en variable des que possible.
+Les Makefiles, comme les langages de programmation, possèdent des variables.
+Elles rendent le Makefile plus lisible et modulable.
+Dès que possible, il faut mettre les valeurs réutilisables dans des variables.
 
-Voici un exemple plus clair. Supposons que plusieurs fichiers sont necessaire pour construire notre programme.
+**Exemple :** supposons que plusieurs fichiers sont nécessaires pour construire notre programme.
 ```
 SRCS = test.c test2.c
 
@@ -71,40 +75,54 @@ make:
  gcc $(SRCS) ## synthaxe d'un appel de variable dans un makefile
 ```
 
-### Les dependances
-// expliauer les dependances
+// rajouter les nom standard de variable
+
+### Les dépendances
+Comme expliqué précédemment, make évite de reconstruire une cible si ce n’est pas nécessaire.
+Une règle peut donc avoir des dépendances : la cible sera reconstruite uniquement si l’une de ses dépendances est plus récente qu’elle.
+```
+cible: dependances
+ commande
+```
+Make remontera automatiquement dans les dépendances pour vérifier si elles aussi doivent être reconstruites.
+
 ### Les règles specifique
-Certaine règles ont deja une utiliter dans le makefile, que ce soit par norme ou que le makefile possede des propriete facilitant leur usage. 
+Certaines règles ont déjà une utilité ou une convention d’usage dans les Makefiles, que ce soit par habitude, par norme ou parce que make leur donne un comportement particulier.
 
 #### all
-Cette règle represente la base du makefile, ce sera la premiere règle appeler. on lui attribue souvent le nom du fichier en **depedance** ici ce sera la variable **$(NAME)**.
+C’est la règle de base d’un Makefile.
+Elle est souvent la première appelée.
+On lui indique en dépendance ce que l’on souhaite construire, en général la variable **$(NAME)**.
 ```
 all: $(NAME)
 ```
 
 #### clean
-La règle clean nous permet de supprimer tous les fichiers qui n'ont plus d'interet avec l'executable. En general les fichiers **.o** et **.d**.
+La règle **clean** permet de supprimer tous les fichiers temporaires qui ne servent plus une fois l’exécutable construit (en général les fichiers **.o** et **.d**).
 ```
 clean:
  rm -f $(OBJ)
 ```
 
 #### fclean
-La règle fclean permet de supprimer l'essemble des fichiers produit par le makefile. Elle appelle donc la règle clean et supprimer aussi l'executable.
+La règle **fclean** supprime l’ensemble des fichiers produits par le Makefile.
+Elle appelle **clean**, puis supprime aussi l’**exécutable**.
 ```
 fclean: clean
 rm -f $(NAME)
 ```
 
 #### re
-La règle **re** permet simplement de recompiler l'ensemble du projet en appelant la règle **fclean** puis la règle **all**.
+La règle **re** permet de recompiler complètement le projet.
+Elle appelle d’abord **fclean**, puis **all**.
 ```
 re: fclean all
 ```
 
 #### .PHONY
-Ce n'est pas une règle mais permet de specifier les règles existance pour eviter d'etre confondu avec des fichiers.
-Ce probleme est possible car si l'on specifi un fichier a make, alors celui ci verifira si la source a besoi d'etre mis a jour.
+**.PHONY** n’est pas une règle.
+Elle permet de spécifier que certaines cibles ne représentent pas de fichiers, ce qui évite que make les confonde avec des fichiers portant le même nom.
+Sans **.PHONY**, si un fichier nommé “clean” existe, la règle **clean** ne s’exécuterait pas.
 ```
 .PHONY: all clean fclean re
 ```
