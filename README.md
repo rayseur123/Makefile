@@ -89,7 +89,7 @@ make:
 
 #### Les variables specifique
 
-- NAME : Représente le nom cible de l'executable.
+- NAME : Représente le nom cible de l'executable ainsi que sa règle pour la construire.
 - SRCS : Représente l'ensemble des fichiers sources
 - OBJS : Représente l'ensemble des .o
 - CC : Représente le compilateur utilisé
