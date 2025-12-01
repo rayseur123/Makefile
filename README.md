@@ -149,8 +149,24 @@ Sans **.PHONY**, si un fichier nommé “clean” existe, la règle **clean** ne
 ```
 
 #### %.o: %.c
+Cette règle permet de convertir si besoin n'importe quel **.o** en sont équivalent **.c**.
+```
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+```
+### Les variables automatiques
+Les variables automatiques sont des variables permetant de rendre le makefile plus modulable.
 
-// expliquer aussi $@ $< $^
+- **$@** Représente le nom de la règle
+- **$<** Représente la premiere dépendance
+- **$^** Représente l'ensemble des dépendances
+
+```
+test.o: test.c
+	$(CC) $(FLAGS) -c $< -o $@ 
+```
+- **$<** représente test.c -
+- **$@** représente test.o.
 
 ## Makefile de base
 ```
