@@ -269,7 +269,7 @@ endif
 
 # Makefile complet
 ```
-NAME := miniRT
+NAME := test
 
 # ---------------------------------------------------------#
 #                       DIRECTORIES                        #
