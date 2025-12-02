@@ -293,13 +293,6 @@ MAIN_SRCS := main.c \
 SRCS =	$(addprefix $(SRCS_DIR), $(TEST_SRCS)) \
 		$(addprefix $(SRCS_DIR), $(MAIN_SRCS)) \
 
-# ---------------------------------------------------------#
-#                           MOD                            #
-# ---------------------------------------------------------#
-
-ifeq($(MOD), debug)
-echo "debug mod"
-endif
 
 # ---------------------------------------------------------#
 #                           LIBS                           #
@@ -312,11 +305,86 @@ LIBS_TARGET :=  libft/libft.a \
 
 LIBS_NAMES := $(patsubst %.a,%,$(notdir $(LIBS_TARGET)))
 
-LIBS_INCLUDES := $(addprefix $(LIBS_DIR), $(addsuffix /include,$(LIBS_NAMES)))
+LIBS_INCLUDES := $(addprefix $(LIBS_DIR), $(addsuffix /include,$(LIBS_NAMES))) # si pas de /include ajouter manuellement
 
-CPP_FLAGS := $(addprefix -I, $(LIBS_INCLUDES))
+CPPFLAGS += $(addprefix -I, $(LIBS_INCLUDES))
 
 SYS_LIBS = m X11 Xext
 SYS_LIBS := $(addprefix -l, $(SYS_LIBS))
+
+# ---------------------------------------------------------#
+#                           OBJS                           #
+# ---------------------------------------------------------#
+
+BUILD_DIR := .build/
+
+OBJS_DIR := $(addprefix $(BUILD_DIR), objs/)
+OBJS := $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+
+# ---------------------------------------------------------#
+#                           DEPS                           #
+# ---------------------------------------------------------#
+
+DEPS := $(OBJS:.o=.d)
+
+CPPFLAGS += -MMD -MP
+
+# ---------------------------------------------------------#
+#                   CONFIG COMPILATION                     #
+# ---------------------------------------------------------#
+
+CFLAGS += -Wall -Wextra -Werror
+
+CC = cc
+
+# ---------------------------------------------------------#
+#                           MOD                            #
+# ---------------------------------------------------------#
+
+ifeq($(MOD), debug)
+	CFLAGS += -g3
+endif
+
+# ---------------------------------------------------------#
+#                          RULES                           #
+# ---------------------------------------------------------#
+
+all: $(NAME)
+
+$(NAME): $(LIBS_TARGET) $(OBJS)
+	$(CC) $^ -o $@ $(SYS_LIBS)
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+
+$(LIBS_TARGET): force
+	$(MAKE) -C $(dir $@)
+
+$(force):
+
+# ---------------------------------------------------------#
+#                       CLEAN                              #
+# ---------------------------------------------------------#
+
+clean:
+	rm -rf $(BUILD_DIR)
+	$(foreach lib,$(LIBS_TARGET),$(MAKE) -C $(dir $(lib)) clean;)
+
+	
+
+fclean: clean
+	rm -rf $(NAME)
+	$(foreach lib,$(LIBS_TARGET),$(MAKE) -C $(dir $(lib)) fclean;)
+
+
+
+re:
+	$(MAKE) fclean
+	$(MAKE) all
+
+.PHONY : clean fclean all re force
+
+-include $(DEPS)
 
 ```
