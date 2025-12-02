@@ -205,5 +205,20 @@ fclean: clean
 ```
 
 ## Les fichiers .d
+Les fichiers **.d** permettent de gérer automatiquement les dépendances liées aux fichiers **.h**.
+Un fichier **.d** associé à un fichier **.o** permet de vérifier si tous les fichiers **.h** inclus sont plus anciens que le **.o**, et donc si une recompilation est nécessaire.
 
+Pour les utiliser, il suffit d’ajouter les options **-MMD -MP** aux flags de compilation, puis d’**inclure** tous les fichiers **.d**.
+### Exemple:
+```
+DEPS := $(test.o=.d)
+
+%.d: %.o
+	
+CPPFLAGS = -MMD -MP
+-include $(DEPS)
+```
+La variable **DEPS** contient l’ensemble des fichiers **.o** convertis en fichiers **.d**.
+Les options **-MMD -MP** demandent au compilateur de générer automatiquement les dépendances dans ces fichiers **.d**.
+L’instruction -include permet d’ajouter le contenu des fichiers **.d** dans le Makefile, sans provoquer d’erreur s’ils n’existent pas encore.
 
