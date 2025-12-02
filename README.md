@@ -248,3 +248,9 @@ Elle permet de concaténer un suffixe avec un ou plusieurs éléments.
 ```
 $(addsuffix .o,file file2) # src/file.o src/file2.o
 ```
+
+### if
+La fonction if permet d’évaluer une condition et de choisir une valeur ou une action selon que la condition est vraie ou non.
+```
+SRCS := $(if $(mod),$(SRCS_BONUS),$(SRCS))
+```
