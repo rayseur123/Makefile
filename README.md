@@ -109,6 +109,10 @@ make:
 - CC : Représente le compilateur utilisé
 - FLAGS : Représente les flags utilisés
 
+#### les variables: = vs :=
+- **=** à chaque utilisation de la variable, sa valeur est réévaluée, ce qui permet de tenir compte d’éventuelles modifications d’autres variables.
+- **:=** la valeur est fixée une seule fois au moment de la définition.
+
 ### Les dépendances
 Comme expliqué précédemment, make évite de reconstruire une cible si ce n’est pas nécessaire.
 Une règle peut donc avoir des dépendances : la cible sera reconstruite uniquement si l’une de ses dépendances est plus récente qu’elle.
