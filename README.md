@@ -266,3 +266,57 @@ ifeq ($(debug),1)
 endif
 
 ```
+
+# Makefile complet
+```
+NAME := miniRT
+
+# ---------------------------------------------------------#
+#                       DIRECTORIES                        #
+# ---------------------------------------------------------#
+
+SRCS_DIR := srcs/
+
+# ---------------------------------------------------------#
+#                       SOURCE FILES                       #
+# ---------------------------------------------------------#
+
+TEST_SRCS := test.c \
+		test2.c \
+
+MAIN_SRCS := main.c \
+
+# ---------------------------------------------------------#
+#                       BUILD SOURCE                       #
+# ---------------------------------------------------------#
+
+SRCS =	$(addprefix $(SRCS_DIR), $(TEST_SRCS)) \
+		$(addprefix $(SRCS_DIR), $(MAIN_SRCS)) \
+
+# ---------------------------------------------------------#
+#                           MOD                            #
+# ---------------------------------------------------------#
+
+ifeq($(MOD), debug)
+echo "debug mod"
+endif
+
+# ---------------------------------------------------------#
+#                           LIBS                           #
+# ---------------------------------------------------------#
+
+LIBS_DIR := libs/
+
+LIBS_TARGET :=  libft/libft.a \
+				libtest/libtest.a  \
+
+LIBS_NAMES := $(patsubst %.a,%,$(notdir $(LIBS_TARGET)))
+
+LIBS_INCLUDES := $(addprefix $(LIBS_DIR), $(addsuffix /include,$(LIBS_NAMES)))
+
+CPP_FLAGS := $(addprefix -I, $(LIBS_INCLUDES))
+
+SYS_LIBS = m X11 Xext
+SYS_LIBS := $(addprefix -l, $(SYS_LIBS))
+
+```
