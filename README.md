@@ -56,7 +56,11 @@ gcc -Iinclude test.c -o test
 
 #### -L / -l
 - -L permet d'indiquer le repertoir ou se trouve les library.
-- -l permet d'indiquer quel sont 
+- -l permet d'indiquer quel sont les library à utiliser.
+Il faut donner à -l un fichier qui commence par **lib**.
+```
+gcc test.c -L libs -lft # compile avec la library libft dans le dossier libs
+``` 
 
 #### Linking
 
@@ -156,7 +160,7 @@ Sans **.PHONY**, si un fichier nommé “clean” existe, la règle **clean** ne
 ```
 
 #### %.o: %.c
-Cette règle permet de convertir si besoin n'importe quel **.o** en sont équivalent **.c**.
+Cette règle permet de construire n'importe quel **.o** via son équivalent **.c**
 ```
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
