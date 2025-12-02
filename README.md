@@ -254,3 +254,15 @@ La fonction if permet d’évaluer une condition et de choisir une valeur si la 
 ```
 SRCS := $(if $(mod),$(SRCS_BONUS),$(SRCS))
 ```
+
+## Expressions conditionel
+Les Makefiles permettent d’utiliser des directives conditionnelles pour exécuter un bloc d’instructions selon certaines conditions.
+Ces directives peuvent encadrer plusieurs lignes d’assignations ou de commandes.
+Exemple:
+```
+ifeq ($(debug),1)
+    $(info Mode debug activé)
+    FLAGS := -g -O0
+endif
+
+```
