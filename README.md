@@ -222,3 +222,25 @@ La variable **DEPS** contient l’ensemble des fichiers **.o** convertis en fich
 Les options **-MMD -MP** demandent au compilateur de générer automatiquement les dépendances dans ces fichiers **.d**.
 L’instruction -include permet d’ajouter le contenu des fichiers **.d** dans le Makefile, sans provoquer d’erreur s’ils n’existent pas encore.
 
+## Les fonction
+Make donne accès à un bon nombre de fonctions utiles pour améliorer votre Makefile.
+Voici un résumé de celles que j’utilise le plus.
+
+### dir / notdir
+Elles permettent respectivement de récupérer le répertoire et le nom du fichier à partir d’un chemin.
+```
+$(dir src/main.c) # src/
+$(notdir src/main.c) # main.c
+```
+
+### addprefix
+Elle permet de concaténer un préfixe avec un ou plusieurs éléments.
+```
+$(addprefix src/,file.c file2.c) # src/file.c src/file2.c
+```
+
+### addsufix
+Elle permet de concaténer un suffixe avec un ou plusieurs éléments.
+```
+$(addsuffix .o,file file2) # src/file.o src/file2.o
+```
