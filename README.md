@@ -341,7 +341,7 @@ CC = cc
 #                           MOD                            #
 # ---------------------------------------------------------#
 
-ifeq($(MOD), debug)
+ifeq ($(MOD), debug)
 	CFLAGS += -g3
 endif
 
