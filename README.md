@@ -20,7 +20,7 @@ gcc test.o test2.o
 Le Pre processor se charge de faire les remplacements textuels :
 il enlève les **commentaires**, remplace les **#define** par leur contenu, et les **#include** seront aussi remplacés par ce qu’ils contiennent.
 
-Cette étape peut être visible grace à l'option **-E**, ce qui permet de stoper la compilation à ce stade pour afficher dans le terminal l'état actuel de la compilation.
+Cette étape peut être visible grace à l'option **-E**, ce qui permet de stopper la compilation à ce stade pour afficher dans le terminal l'état actuel de la compilation.
 ```
  gcc -E test.c
 ```
@@ -39,7 +39,7 @@ Elle est visible grâce à l’option **-c**.
 ```
 gcc -c test.c
 ```
-Cette étape sera alors utile dans le Makefile pour eviter de recompiler l'enssemble des fichiers il recompilera seulement les .o concernés.
+Cette étape sera alors utile dans le Makefile pour eviter de recompiler l'ensemble des fichiers il recompilera seulement les .o concernés.
 
 #### -o
 Une option utile à connaître est **-o**, qui permet de prendre le contenu du fichier à sa gauche et de le stocker dans le fichier de droite.
@@ -49,7 +49,7 @@ gcc test.c -o test # test sera alors l'executable
 ```
 
 #### -I
--I permet d'indiquer à gcc ou trouver les headers, ce qui permet d'éviter de spécifier leur chemins dans les includes.
+-I permet d'indiquer à gcc où trouver les headers, ce qui permet d'éviter de spécifier leur chemins dans les includes.
 ```
 gcc -Iinclude test.c -o test
 ```
@@ -71,7 +71,7 @@ Le linking rassemble tous les fichiers **.o** pour former un **exécutable** fin
 
 ## Makefile guide
 ### le règles
-ne règle représente une commande, ou un ensemble de commandes shell, à exécuter.
+Une règle représente une commande, ou un ensemble de commandes shell, à exécuter.
 Les règles constituent le **cœur** du Makefile : make les parcourt et les exécute pour construire le fichier final.
 
 Elles sont composées de leur nom, suivi d’un **:**, puis d’une ou plusieurs lignes de commandes précédées d’une **tabulation**.
@@ -250,7 +250,7 @@ $(addsuffix .o,file file2) # src/file.o src/file2.o
 ```
 
 ### if
-La fonction if permet d’évaluer une condition et de choisir une valeur ou une action selon que la condition est vraie ou non.
+La fonction if permet d’évaluer une condition et de choisir une valeur si la condition est vraie ou non.
 ```
 SRCS := $(if $(mod),$(SRCS_BONUS),$(SRCS))
 ```
