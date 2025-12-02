@@ -371,13 +371,9 @@ clean:
 	rm -rf $(BUILD_DIR)
 	$(foreach lib,$(LIBS_TARGET),$(MAKE) -C $(dir $(lib)) clean;)
 
-	
-
 fclean: clean
 	rm -rf $(NAME)
 	$(foreach lib,$(LIBS_TARGET),$(MAKE) -C $(dir $(lib)) fclean;)
-
-
 
 re:
 	$(MAKE) fclean
