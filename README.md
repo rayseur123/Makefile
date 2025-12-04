@@ -319,7 +319,7 @@ SYS_LIBS := $(addprefix -l, $(SYS_LIBS))
 BUILD_DIR := .build/
 
 OBJS_DIR := $(addprefix $(BUILD_DIR), objs/)
-OBJS := $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.cpp=.o)))
 
 # ---------------------------------------------------------#
 #                           DEPS                           #
